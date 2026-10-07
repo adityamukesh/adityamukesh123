@@ -37,8 +37,13 @@ function ProductList({ products }) {
     <div className="product-container">
       <h1 className="page-title">Our Products</h1>
 
-      <div className="product-grid">
-        {products.map((product) => {
+      {!products || products.length === 0 ? (
+        <p style={{ textAlign: 'center', fontSize: '18px', color: '#666', marginTop: '20px' }}>
+          Loading products...
+        </p>
+      ) : (
+        <div className="product-grid">
+          {products.map((product) => {
           return (
             <div className="product-card" key={product.id}>
               
@@ -75,7 +80,8 @@ function ProductList({ products }) {
             </div>
           );
         })}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

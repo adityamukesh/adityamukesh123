@@ -10,18 +10,31 @@ const [products,setProducts]=useState([]);
 
 
 
-useEffect(()=>{
-    async  function APIcall(){
-      console.log("aman happy birthday..🎂");
-         let responce= await fetch("https://adityamukesh123.onrender.com/products");
-           let data= await responce.json();
-           console.log(data);
-           setProducts(data);  //pay attention , data formate change
-     }
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  useEffect(() => {
+    async function APIcall() {
+      try {
+        setLoading(true);
+        console.log("Fetching products from backend...");
+        let response = await fetch("https://adityamukesh123.onrender.com/api/products");
+        if (!response.ok) {
+          throw new Error(`Server returned status: ${response.status}`);
+        }
+        let data = await response.json();
+        console.log("Products data fetched:", data);
+        setProducts(data);
+      } catch (err) {
+        console.error("Failed to fetch products:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-   APIcall();
-},[]);
+    APIcall();
+  }, []);
 
   // useEffect(()=>{ //execute each render
   //   console.log("parth");
