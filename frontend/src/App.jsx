@@ -13,7 +13,7 @@ const [products,setProducts]=useState([]);
 useEffect(()=>{
     async  function APIcall(){
       console.log("aman happy birthday..🎂");
-         let responce= await fetch("http://localhost:3000/api/products");
+         let responce= await fetch("https://adityamukesh123.onrender.com/products");
            let data= await responce.json();
            console.log(data);
            setProducts(data);  //pay attention , data formate change
